@@ -33,33 +33,38 @@ def udp_socket(s_port):
     return s_port
 
 
-checker()
+checker()  # check for argv format
 sever_port = 5001
 req_code = sys.argv[1]
 file_name = sys.argv[2]
-n_port = udp_socket(sever_port)
+n_port = udp_socket(sever_port)  # get the n_port
 udp_sock = socket(AF_INET, SOCK_DGRAM)
 udp_sock.bind(('', n_port))
 
 while True:
     message, clientAddress = udp_sock.recvfrom(2048)
     msg_arr = message.split()
+    print(str(msg_arr))
     if len(msg_arr) != 3:
         print("client's sending format is wrong")
         sys.exit(1)
-    if msg_arr[0] == "PORT":  # Active mode
-        if msg_arr[2] != req_code:  # wrong req_code
+    if msg_arr[0].decode() == "PORT":  # Active mode
+        if msg_arr[2].decode() != req_code:  # wrong req_code
+            print("deny for transfer")
             udp_sock.sendto("0".encode(), clientAddress)
         else:
+            print("ok for transfer")
             udp_sock.sendto("1".encode(), clientAddress)
             tcp_sock = socket(AF_INET, SOCK_STREAM)
             # tcp_port = get_r_port()
             # tcp_sock.bind('', tcp_port)
             # tcp_sock.listen(1)
-            tcp_sock.connect((clientAddress[0], msg_arr[1]))
+            tcp_sock.connect((clientAddress[0], int(msg_arr[1].decode())))
             with open(file_name, 'rb') as f:
                 data = f.read(1024)
                 while data:
                     tcp_sock.sendall(data)
                     data = f.read(1024)
             tcp_sock.close()
+    else:
+        print("exception")
