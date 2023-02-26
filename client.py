@@ -82,8 +82,6 @@ if len(sys.argv) != 6:
     print('Usage: \'python client.py <server address> <n_port> <mode> <req_code> <file_received>\'')
     sys.exit(1)
 server_address = sys.argv[1]
-# if server_address == 'localhost':
-#     server_address = '127.0.0.1'
 n_port = sys.argv[2]
 mode = sys.argv[3]
 req_code = sys.argv[4]
