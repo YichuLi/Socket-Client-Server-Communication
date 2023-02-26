@@ -1,9 +1,8 @@
-# CS 456 / 656 Assignment 1
+# CS 656 Assignment 1
 
 This is a program that complete both TCP and UDP socket programming in a client server environment.
 * Programming Language: Python 3.9
 * IDE: Pycharm
-* Tested Environment: ubuntu2004-010
 
 ## How to run the program
 Command line for server:
@@ -22,7 +21,7 @@ Command line for client:
 - req_code: an integer for authentication
 - file_received: a string for the name of the received file
 
-If permission denied when run the server.sh or client.sh scripts, please run the following command first:
+If permission denied when run the server.sh or client.sh scripts, run the following command first:
 ```commandline
 chmod +x server.sh 
 chmod +x client.sh
